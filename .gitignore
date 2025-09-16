@@ -1,0 +1,64 @@
+<<<<<<< HEAD
+# Arquivos de log e dependências
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/frontend/node_modules/
+/backend/target/
+
+# Arquivos gerados pelo Maven Wrapper
+.mvn/
+!/backend/.mvn/wrapper/maven-wrapper.properties
+
+# --- ARQUIVOS DE IDE E FERRAMENTAS ---
+
+### IntelliJ IDEA ###
+# Cobre pastas .idea em qualquer subdiretório (backend, frontend, etc)
+**/.idea/
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+**/.vscode/
+
+### Eclipse/STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+# Arquivos de Sistema Operacional
+.DS_Store
+Thumbs.db
+=======
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# https://maven.apache.org/wrapper/#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse m2e generated files
+# Eclipse Core
+.project
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+>>>>>>> 4411cc07461cf740940e32bb3d867d7baf1999cd
