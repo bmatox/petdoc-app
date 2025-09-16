@@ -45,11 +45,90 @@ O backend segue os princípios do padrão **MVC (Model-View-Controller)** e é o
 
 ## 🚀 Como Executar o Projeto
 
+Este guia irá te ajudar a configurar e executar o ambiente de desenvolvimento localmente. A abordagem recomendada utiliza **Docker** para gerenciar o banco de dados, garantindo um ambiente consistente e de fácil configuração.
+
 ### Pré-requisitos
 
--   Java JDK 21 ou superior
--   Maven 3.8+
--   Node.js 18+
--   Uma instância do PostgreSQL rodando localmente
+Antes de começar, garanta que você tenha as seguintes ferramentas instaladas em sua máquina:
 
-###
+-   **Java JDK 21+** ([Download](https://www.oracle.com/java/technologies/downloads/))
+-   **Maven 3.8+** ([Download](https://maven.apache.org/download.cgi))
+-   **Node.js 20.x (LTS)** e **npm 10.x+** ([Download](https://nodejs.org/))
+-   **Docker** e **Docker Compose** ([Download Docker Desktop](https://www.docker.com/products/docker-desktop/))
+-   Uma IDE de sua preferência (IntelliJ IDEA para o backend, VS Code para o frontend são recomendados).
+
+### 1. Configuração Inicial
+
+Primeiro, clone o repositório e configure as variáveis de ambiente necessárias.
+
+```bash
+# 1. Clone o repositório para sua máquina local
+git clone [https://github.com/bmatox/petdoc-app.git](https://github.com/bmatox/petdoc-app.git)
+
+# 2. Navegue para a pasta do projeto
+cd petdoc-app
+```
+
+**Configuração do Backend:**
+
+O backend precisa se conectar ao banco de dados. Para isso, você deve criar um arquivo de configuração a partir do nosso template.
+
+1.  Navegue até `backend/src/main/resources/`.
+2.  Crie uma cópia do arquivo `application.properties.example` e renomeie-a para `application.properties`.
+3.  Abra o novo arquivo `application.properties` e preencha a senha do banco de dados.
+    * **Importante:** A senha deve ser a mesma que você definiu no arquivo `docker-compose.yml` (ex: `sua_senha_segura`).
+
+O arquivo `application.properties` já está no `.gitignore` para proteger suas credenciais.
+
+### 2. Executando a Aplicação
+
+Siga os passos na ordem para iniciar os serviços.
+
+**Passo 1: Iniciar o Banco de Dados com Docker**
+
+Com o Docker Desktop em execução, rode o seguinte comando na **raiz do projeto** (`petdoc-app`):
+
+```bash
+# Este comando vai baixar a imagem do PostgreSQL e iniciar o container em segundo plano
+docker-compose up -d
+```
+Seu banco de dados PostgreSQL agora está rodando e pronto para aceitar conexões na porta `5432`.
+
+**Passo 2: Iniciar o Backend (API REST)**
+
+Abra um **novo terminal** e navegue até a pasta do backend para iniciar a aplicação Spring Boot.
+
+```bash
+# Navegue até a pasta do backend
+cd backend
+
+# Compile e execute o projeto
+./mvnw spring-boot:run
+```
+A API estará disponível e rodando em `http://localhost:8080`.
+
+**Passo 3: Iniciar o Frontend (Aplicação Angular)**
+
+Abra um **terceiro terminal** e navegue até a pasta do frontend para iniciar a interface do usuário.
+
+```bash
+# Navegue até a pasta do frontend
+cd frontend
+
+# Instale as dependências (execute apenas na primeira vez)
+npm install
+
+# Inicie o servidor de desenvolvimento
+ng serve
+```
+A aplicação web estará acessível no seu navegador em `http://localhost:4200`.
+
+### Pré-requisitos
+
+Antes de começar, garanta que você tenha as seguintes ferramentas instaladas em sua máquina:
+
+-   **Java JDK 21+** ([Download](https://www.oracle.com/java/technologies/downloads/))
+-   **Maven 3.8+** ([Download](https://maven.apache.org/download.cgi))
+-   **Node.js 20.x (LTS)** e **npm 10.x+** ([Download](https://nodejs.org/))
+-   **Docker** e **Docker Compose** ([Download Docker Desktop](https://www.docker.com/products/docker-desktop/))
+-   Uma IDE de sua preferência (IntelliJ IDEA para o backend, VS Code para o frontend são recomendados).
