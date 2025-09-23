@@ -19,16 +19,16 @@ O Spring Boot é responsável por todo o fluxo: ele recebe a requisição do nav
 
 ```mermaid
 graph TD
-    A[Navegador do Usuário] -- Requisição HTTP (ex: /cadastro) --> B{Spring Boot MVC};
-    B -- Chama --> C[Controller];
-    C -- Usa --> D[Service (Lógica de Negócio)];
-    D -- Acessa --> E[Repository];
-    E -- Interage com --> F[(Banco de Dados)];
+    A["Navegador do Usuário"] -- Requisição HTTP --> B{"Spring Boot MVC"};
+    B -- Chama --> C["Controller"];
+    C -- Usa --> D["Service (Lógica de Negócio)"];
+    D -- Acessa --> E["Repository"];
+    E -- Interage com --> F[("Banco de Dados")];
     F -- Retorna Dados --> E;
     E -- Retorna Dados --> D;
     D -- Retorna Dados --> C;
-    C -- Adiciona dados ao Model --> G[View - Thymeleaf Template];
-    G -- Renderiza --> H[Página HTML Completa];
+    C -- Adiciona dados ao Model --> G["View - Thymeleaf Template"];
+    G -- Renderiza --> H["Página HTML Completa"];
     B -- Envia HTML --> A;
 ```
 
