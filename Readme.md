@@ -1,4 +1,4 @@
-# Pet Doc - Sistema de Gestão de Vacinação Animal
+# Pet Doc - Sua Carteira de Vacinação PET
 
 [![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)](https://github.com/bmatox/petdoc-app)
 
