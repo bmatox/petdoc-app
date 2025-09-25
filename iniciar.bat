@@ -33,7 +33,6 @@ ECHO.
 ECHO --- [PASSO 3 de 4] Iniciando a aplicacao Spring Boot...
 ECHO (Isso pode levar alguns minutos na primeira vez)
 ECHO.
-cd backend\petdoc-app
 call mvnw spring-boot:run
 
 ECHO.

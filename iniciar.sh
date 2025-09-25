@@ -40,7 +40,6 @@ echo ""
 echo "--- [PASSO 3 de 4] Iniciando a aplicacao Spring Boot..."
 echo "(Isso pode levar alguns minutos na primeira vez)"
 echo ""
-cd backend/petdoc-app
 ./mvnw spring-boot:run
 
 echo ""
