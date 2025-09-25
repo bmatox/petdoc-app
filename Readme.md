@@ -1,4 +1,4 @@
-# Pet Doc - Sistema de Gestão de Vacinação Animal
+# Pet Doc - Sua Carteira de Vacinação PET
 
 [![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)](https://github.com/bmatox/petdoc-app)
 
@@ -102,5 +102,6 @@ Com a configuração inicial feita, para iniciar todo o ambiente (banco de dados
     # Execute o script
     ./iniciar.sh
     ```
+
 
 O script irá automaticamente verificar suas dependências, iniciar o container do banco de dados e rodar a aplicação Spring Boot. A aplicação web estará acessível em **`http://localhost:8080`**.
