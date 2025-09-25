@@ -1,22 +1,18 @@
 # Arquivos de Configuração e Segredos
 .env
 
-# Arquivos de log e dependências
+# Arquivos de Build e Log do Maven
+/target/
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-/frontend/node_modules/
-/backend/target/
 
 # Arquivos gerados pelo Maven Wrapper
+# Ignora a pasta .mvn, mas mantém o arquivo de propriedades do wrapper
 .mvn/
-!/backend/.mvn/wrapper/maven-wrapper.properties
+!/.mvn/wrapper/maven-wrapper.properties
 
 # --- ARQUIVOS DE IDE E FERRAMENTAS ---
 
 ### IntelliJ IDEA ###
-# Cobre pastas .idea em qualquer subdiretório
 **/.idea/
 *.iws
 *.iml

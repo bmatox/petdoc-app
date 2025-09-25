@@ -54,20 +54,20 @@ A aplicação é organizada em uma **Arquitetura em Camadas** para garantir a se
 
 ## 🚀 Como Executar o Projeto
 
-Este guia irá te ajudar a configurar e executar o ambiente de desenvolvimento localmente.
+Este guia irá te ajudar a configurar e executar o ambiente de desenvolvimento localmente. Após a configuração inicial, a aplicação pode ser iniciada com um único comando.
 
 ### Pré-requisitos
 
 Antes de começar, garanta que você tenha as seguintes ferramentas instaladas em sua máquina:
 
 -   **Java JDK 21+** ([Download](https://www.oracle.com/java/technologies/downloads/))
--   **Maven 3.8+** ([Download](https://maven.apache.org/download.cgi))
 -   **Docker** e **Docker Compose** ([Download Docker Desktop](https://www.docker.com/products/docker-desktop/))
--   Uma IDE de sua preferência (ex: IntelliJ IDEA, Eclipse).
 
-### 1. Configuração Inicial
+O Maven será gerenciado pelo wrapper (`mvnw`) incluído no projeto.
 
-Primeiro, clone o repositório e configure a conexão com o banco de dados.
+### 1. Configuração Inicial (Apenas na primeira vez)
+
+Estes passos são necessários apenas na primeira vez que você configurar o projeto.
 
 ```bash
 # 1. Clone o repositório para sua máquina local
@@ -79,34 +79,29 @@ cd petdoc-app
 
 **Configuração do Banco de Dados:**
 
-1.  Navegue até `backend/src/main/resources/`.
-2.  Crie uma cópia do arquivo `application.properties.example` e renomeie-a para `application.properties`.
-3.  Abra o novo arquivo `application.properties` e preencha a senha do banco de dados.
-    * **Importante:** A senha deve ser a mesma que você definiu no arquivo `docker-compose.yml` (ex: `sua_senha_segura`).
+A aplicação precisa de um arquivo `application.properties` com as credenciais do banco.
 
-### 2. Executando a Aplicação
+1.  Navegue até a pasta `backend/src/main/resources/`.
+2.  Crie uma cópia do arquivo `application.properties.example` (se ele existir) e renomeie a cópia para `application.properties`.
+3.  Garanta que as credenciais no `application.properties` batem com as definidas no arquivo `.env` ou `docker-compose.yml`.
 
-Siga os passos na ordem para iniciar os serviços.
+### 2. Executando com o Script Automatizado
 
-**Passo 1: Iniciar o Banco de Dados com Docker**
+Com a configuração inicial feita, para iniciar todo o ambiente (banco de dados + aplicação), basta executar o script correspondente ao seu sistema operacional a partir da **raiz do projeto**.
 
-Com o Docker Desktop em execução, rode o seguinte comando na **raiz do projeto**:
+-   **No Windows:**
+    ```bash
+    .\iniciar.bat
+    ```
 
-```bash
-# Este comando vai iniciar o container do PostgreSQL em segundo plano
-docker-compose up -d
-```
-Seu banco de dados estará rodando e pronto para aceitar conexões na porta `5432`.
+-   **No Linux ou macOS:**
+    ```bash
+    # Dê permissão de execução ao script (apenas na primeira vez)
+    chmod +x iniciar.sh
 
-**Passo 2: Iniciar a Aplicação Web**
+    # Execute o script
+    ./iniciar.sh
+    ```
 
-Navegue até a pasta do backend para iniciar a aplicação Spring Boot.
 
-```bash
-# Navegue até a pasta do backend
-cd backend
-
-# Compile e execute o projeto
-./mvnw spring-boot:run
-```
-A aplicação web completa estará acessível no seu navegador em **`http://localhost:8080`**.
+O script irá automaticamente verificar suas dependências, iniciar o container do banco de dados e rodar a aplicação Spring Boot. A aplicação web estará acessível em **`http://localhost:8080`**.
