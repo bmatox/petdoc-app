@@ -1,13 +1,11 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:15
     container_name: petdoc-postgres-db
     environment:
-      POSTGRES_USER: petdoc_user
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: petdoc_db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
