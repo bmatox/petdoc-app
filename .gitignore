@@ -1,4 +1,6 @@
-<<<<<<< HEAD
+# Arquivos de Configuração e Segredos
+.env
+
 # Arquivos de log e dependências
 *.log
 npm-debug.log*
@@ -14,7 +16,7 @@ yarn-error.log*
 # --- ARQUIVOS DE IDE E FERRAMENTAS ---
 
 ### IntelliJ IDEA ###
-# Cobre pastas .idea em qualquer subdiretório (backend, frontend, etc)
+# Cobre pastas .idea em qualquer subdiretório
 **/.idea/
 *.iws
 *.iml
@@ -43,22 +45,3 @@ build/
 # Arquivos de Sistema Operacional
 .DS_Store
 Thumbs.db
-=======
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-# https://maven.apache.org/wrapper/#usage-without-binary-jar
-.mvn/wrapper/maven-wrapper.jar
-
-# Eclipse m2e generated files
-# Eclipse Core
-.project
-# JDT-specific (Eclipse Java Development Tools)
-.classpath
->>>>>>> 4411cc07461cf740940e32bb3d867d7baf1999cd
