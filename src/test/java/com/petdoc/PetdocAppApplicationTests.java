@@ -1,4 +1,4 @@
-package com.petdoc.backend;
+package com.petdoc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
