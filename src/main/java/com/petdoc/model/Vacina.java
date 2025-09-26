@@ -1,10 +1,9 @@
-package model;
+package com.petdoc.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import model.Pet;
 
 import java.time.LocalDate;
 
