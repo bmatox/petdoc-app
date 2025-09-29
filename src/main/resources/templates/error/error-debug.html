@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Erro - PetDoc</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background-color: #f4f4f9; }
+        .container { background-color: white; border: 1px solid #ddd; padding: 20px; border-radius: 8px; max-width: 800px; margin: auto; }
+        h1 { color: #d9534f; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #f7f7f7; }
+        code { background-color: #eee; padding: 2px 4px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Relatório de Erro da Aplicação</h1>
+    <p>Um erro inesperado ocorreu. Abaixo estão os detalhes para depuração.</p>
+
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Detalhe</th>
+        </tr>
+        <tr>
+            <td><strong>Timestamp</strong></td>
+            <td th:text="${timestamp}"></td>
+        </tr>
+        <tr>
+            <td><strong>Status HTTP</strong></td>
+            <td th:text="${status}"></td>
+        </tr>
+        <tr>
+            <td><strong>Tipo de Erro</strong></td>
+            <td><code th:text="${error}"></code></td>
+        </tr>
+        <tr>
+            <td><strong>Mensagem</strong></td>
+            <td><code th:text="${message}"></code></td>
+        </tr>
+        <tr>
+            <td><strong>Caminho (URL)</strong></td>
+            <td th:text="${path}"></td>
+        </tr>
+        <tr>
+            <td><strong>Navegador (User-Agent)</strong></td>
+            <td th:text="${browser}"></td>
+        </tr>
+    </table>
+    <br>
+    <a href="/">Voltar para a Página Inicial</a>
+</div>
+</body>
+</html>
