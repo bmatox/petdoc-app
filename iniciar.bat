@@ -4,11 +4,8 @@ ECHO       INICIANDO AMBIENTE DE DESENVOLVIMENTO PETDOC
 ECHO =======================================================
 
 ECHO.
-ECHO --- [PASSO 0 de 4] Configurando ambiente Java para esta sessao...
-set "PETDOC_JAVA_HOME=C:\Users\Bruno Matos\.jdks\openjdk-21.0.2"
-set "JAVA_HOME=%PETDOC_JAVA_HOME%"
-set "PATH=%PETDOC_JAVA_HOME%\bin;%PATH%"
-ECHO Java 21 configurado temporariamente para este script.
+ECHO --- [PASSO 0 de 4] Verificando configuracao Java do sistema...
+ECHO Usando JAVA_HOME encontrado em: %JAVA_HOME%
 java -version
 
 ECHO.
