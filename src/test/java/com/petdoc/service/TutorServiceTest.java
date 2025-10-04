@@ -16,9 +16,6 @@ class TutorServiceTest {
     @Autowired
     private TutorService tutorService;
 
-    @Autowired
-    private TutorRepository tutorRepository;
-
     @Test
     void deveCadastrarNovoTutorComSucesso() {
         // ARRANGE (Preparar)
@@ -46,8 +43,6 @@ class TutorServiceTest {
 
         // ACT & ASSERT (Agir e Verificar)
         // Verificamos se, ao tentar cadastrar o segundo DTO, uma exceção do tipo RuntimeException é lançada.
-        Assertions.assertThrows(RuntimeException.class, () -> {
-            tutorService.cadastrar(dto2);
-        });
+        Assertions.assertThrows(RuntimeException.class, () -> tutorService.cadastrar(dto2));
     }
 }
