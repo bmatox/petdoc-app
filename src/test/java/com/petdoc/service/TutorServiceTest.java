@@ -2,7 +2,6 @@ package com.petdoc.service;
 
 import com.petdoc.dto.TutorCadastroDTO;
 import com.petdoc.model.Tutor;
-import com.petdoc.repository.TutorRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
