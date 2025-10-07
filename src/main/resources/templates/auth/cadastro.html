@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro - PetDoc</title>
+</head>
+<body>
+<h1>Crie sua Conta</h1>
+
+<div th:if="${erroGeral}" style="color: red;">
+    <p th:text="${erroGeral}"></p>
+</div>
+
+<form th:action="@{/cadastro}" th:object="${tutor}" method="post">
+    <div>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" th:field="*{nome}" />
+        <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" style="color: red;"></p>
+    </div>
+    <div>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" th:field="*{email}" />
+        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red;"></p>
+    </div>
+    <div>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" th:field="*{senha}" />
+        <p th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" style="color: red;"></p>
+    </div>
+    <div>
+        <button type="submit">Cadastrar</button>
+    </div>
+</form>
+<p>Já tem uma conta? <a href="/login" th:href="@{/login}">Faça login</a></p>
+</body>
+</html>

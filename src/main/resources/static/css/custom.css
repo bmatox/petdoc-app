@@ -1,0 +1,15 @@
+.footer-petdoc {
+    background-color: #f0f0f0; /* Um cinza muito claro, quase branco, para o fundo do footer */
+    border-top: 1px solid #dee2e6; /* Uma linha fina para separar */
+    color: #6c757d; /* Texto cinza escuro */
+    font-size: 0.85rem;
+}
+
+.footer-petdoc a {
+    color: #6c757d; /* Links com a mesma cor do texto */
+    text-decoration: none;
+}
+
+.footer-petdoc a:hover {
+    text-decoration: underline;
+}

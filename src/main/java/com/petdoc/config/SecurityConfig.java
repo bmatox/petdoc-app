@@ -14,19 +14,28 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Usando BCrypt para hashing de senhas
+        return new BCryptPasswordEncoder();
     }
 
-    /**
-     * O SecurityFilterChain para definir as "regras do jogo de segurança para as requisições HTTP.
-     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                // Abordagem TEMPORÁRIA para facilitar o desenvolvimento dos formulários.
+                // Remove a necessidade de enviar o token CSRF a cada requisição.
+                .csrf(csrf -> csrf.disable())
+
+                /*
+                // Abordagem DEFINITIVA e SEGURA (usar esta no futuro)
+                // Quando habilitada, todos os formulários POST precisarão incluir o token CSRF.
+                // O Thymeleaf faz isso automaticamente se a dependência thymeleaf-extras-springsecurity6 estiver no pom.xml
+                // e o formulário contiver um campo oculto para o token.
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**")) // Exemplo: ignorar CSRF para futuras APIs REST
+                */
+
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/login", "/tutores/cadastro").permitAll()
-                        .anyRequest().authenticated() // Define que todas as outras requisições precisam estar autenticadas
+                        .requestMatchers("/login", "/cadastro").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
