@@ -50,4 +50,10 @@ public class AuthController {
             return "auth/cadastro";
         }
     }
+
+    @GetMapping("/dashboard")
+    public String exibirDashboard() {
+        // No futuro, aqui buscaremos dados (pets, vacinas) para mostrar no dashboard
+        return "dashboard"; // Retorna o nome do arquivo dashboard.html
+    }
 }

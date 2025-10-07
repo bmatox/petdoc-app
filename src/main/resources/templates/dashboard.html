@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - PetDoc</title>
+</head>
+<body>
+<h1>Bem-vindo ao seu Dashboard!</h1>
+<p>Login realizado com sucesso.</p>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Sair</button>
+</form>
+</body>
+</html>
