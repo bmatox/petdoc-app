@@ -1,0 +1,70 @@
+/* Fundo da coluna do formulário com a cor da logo */
+.login {
+    min-height: 100vh;
+    background: #e0ffed;
+    display: flex;
+    align-items: center;
+}
+
+/* Sombra sutil para destacar a logo do fundo */
+.logo-shadow {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo da marca/logo */
+.petdoc-brand-name {
+    font-weight: 700;
+    color: #212529;
+}
+
+/* --- Estilos do Formulário --- */
+.form-floating .form-control {
+    border-radius: 0.5rem;
+}
+
+/* --- Estilo do Botão Principal (Nova Cor) --- */
+.btn-primary {
+    background-color: #006A71 !important; /* Cor de Ação Principal */
+    border-color: #006A71 !important;
+}
+
+.btn-primary:hover {
+    background-color: #00565c !important; /* Um tom mais escuro para o hover */
+    border-color: #00565c !important;
+}
+
+.btn-login {
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* --- Estilos do Carrossel (sem mudanças) --- */
+.carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.carousel-item img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* --- Estilos do Footer com Redes Sociais --- */
+.footer-petdoc .social-icons a {
+    font-size: 1.5rem;
+    color: #6c757d; /* Cor secundária de texto */
+    margin: 0 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.footer-petdoc .social-icons a:hover {
+    color: #006A71; /* Cor de Ação Principal no hover */
+    transform: scale(1.2);
+}
