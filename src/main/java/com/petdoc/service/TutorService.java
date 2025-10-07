@@ -11,11 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class TutorService {
 
-    @Autowired
-    private TutorRepository tutorRepository;
+    private final TutorRepository tutorRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public TutorService(TutorRepository tutorRepository, PasswordEncoder passwordEncoder) {
+        this.tutorRepository = tutorRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Transactional
     public Tutor cadastrar(TutorCadastroDTO dto) {
