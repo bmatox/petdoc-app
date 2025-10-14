@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<header th:fragment="main-header">
+    <nav class="navbar navbar-expand-lg navbar-petdoc navbar-light shadow-sm">
+
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" th:href="@{/dashboard}">
+                <img th:src="@{/images/petdoc-logo.png}" alt="Logo PetDoc" class="img-fluid rounded-circle logo-shadow" style="max-height: 80px;">
+                <span class="fw-bold">PetDoc</span>
+            </a>
+
+            <div class="d-flex" sec:authorize="isAuthenticated()">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown user-dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-2"></i>
+                            Olá, <span th:text="${#strings.substringBefore(#authentication.principal.nome, ' ')}" class="fw-bold ms-1">Usuário</span>!
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">
+                                <i class="fas fa-user-cog me-2"></i>Minha Conta
+                            </a></li>
+                            <li><a class="dropdown-item" href="#">
+                                <i class="fas fa-cog me-2"></i>Configurações
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form th:action="@{/logout}" method="post" class="d-inline">
+                                    <button class="dropdown-item dropdown-logout-button" type="submit">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Sair
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+</body>
+</html>

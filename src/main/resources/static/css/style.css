@@ -1,0 +1,52 @@
+/* ==========================================================================
+   Estilos Globais da Aplicação PetDoc
+   ========================================================================== */
+
+/* Cor de fundo principal para o cabeçalho (Header) */
+.navbar-petdoc {
+    background-color: #e0ffed; /* A cor pastel da sua logo */
+}
+
+/* Garante que o texto da marca e dos links fiquem pretos */
+.navbar-petdoc .navbar-brand,
+.navbar-petdoc .nav-link,
+.navbar-petdoc .dropdown-item {
+    color: #000000; /* Cor preta para o texto */
+}
+
+/* Estilo para o dropdown do usuário no header */
+.user-dropdown .fa-user-circle {
+    font-size: 1.5rem;
+    color: #000000; /* Ícone preto também */
+}
+
+/* Estilo para o dropdown do usuário no header */
+.user-dropdown .fa-user-circle {
+    font-size: 1.5rem;
+}
+
+.dropdown-logout-button {
+    background: none;
+    border: none;
+    color: inherit;
+    text-align: left;
+    width: 100%;
+}
+
+/* --- Estilos do Footer com Redes Sociais --- */
+.footer-petdoc {
+    background-color: #ffffff; /* Fundo branco para o footer */
+    border-top: 1px solid #dee2e6;
+}
+
+.footer-petdoc .social-icons a {
+    font-size: 1.5rem;
+    color: #6c757d; /* Cor secundária de texto */
+    margin: 0 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.footer-petdoc .social-icons a:hover {
+    color: #006A71; /* Cor de Ação Principal no hover */
+    transform: scale(1.2);
+}
