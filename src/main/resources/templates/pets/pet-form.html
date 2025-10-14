@@ -1,26 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{_layout :: body(content=~{::content}, title='Cadastrar Novo Pet')}">
-
-<body>
-<div th:fragment="content">
+      th:replace="~{_layout :: layout(title='Cadastrar Novo Pet', content=~{::content})}">
+<th:block th:fragment="content">
     <div class="row justify-content-center">
         <div class="col-12 col-lg-10 col-xl-8">
-
             <nav aria-label="breadcrumb" class="mb-3">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Cadastrar Novo Pet</li>
                 </ol>
             </nav>
-
             <div class="card">
                 <div class="card-body p-4 p-md-5">
                     <h2 class="card-title mb-2">Cadastrar Novo Pet</h2>
                     <p class="card-subtitle mb-4 text-muted">Preencha as informações do seu pet para adicioná-lo ao sistema.</p>
-
                     <form th:action="@{/pets}" th:object="${petDTO}" method="post">
-
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="nome" class="form-label">Nome do Pet *</label>
@@ -33,7 +27,6 @@
                                 <div class="text-danger small" th:if="${#fields.hasErrors('especie')}" th:errors="*{especie}"></div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="raca" class="form-label">Raça</label>
@@ -46,32 +39,22 @@
                                 <div class="text-danger small" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></div>
                             </div>
                         </div>
-
-                        <div class="mb-3">
-                            <label for="observacoes" class="form-label">Observações Adicionais</label>
-                            <textarea class="form-control" id="observacoes" th:field="*{observacoes}" rows="3" placeholder="Informações adicionais sobre o pet (opcional)"></textarea>
-                        </div>
-
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                             <a th:href="@{/dashboard}" class="btn btn-secondary me-md-2">Cancelar</a>
                             <button type="submit" class="btn btn-primary">Salvar Pet</button>
                         </div>
-
                     </form>
                 </div>
             </div>
-
             <div class="alert alert-info mt-4" role="alert">
                 <h4 class="alert-heading">Dicas para cadastro</h4>
                 <ul>
                     <li>Os campos marcados com (*) são obrigatórios.</li>
                     <li>A data de nascimento ajuda a calcular a idade do pet.</li>
-                    <li>Use as observações para informações importantes sobre saúde ou comportamento.</li>
                 </ul>
             </div>
-
         </div>
     </div>
-</div>
-</body>
+</th:block>
+
 </html>
