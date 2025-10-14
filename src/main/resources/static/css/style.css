@@ -1,0 +1,41 @@
+/* Definindo nossas cores customizadas baseadas na tela de login */
+:root {
+    --bs-primary: #1F8A70; /* Verde escuro do botão de login */
+    --bs-secondary: #6c757d; /* Cinza padrão do Bootstrap */
+    --bs-info: #0dcaf0; /* Azul claro para caixas de informação */
+    --bs-light: #FCFDF2; /* Um branco levemente esverdeado */
+    --bs-body-bg: #f8f9fa; /* Um cinza bem claro para o fundo geral */
+}
+
+/* Sobrescrevendo a cor primária do Bootstrap */
+.bg-primary {
+    background-color: var(--bs-primary) !important;
+}
+
+.btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.btn-primary:hover {
+    background-color: #1A7560; /* Um pouco mais escuro no hover */
+    border-color: #1A7560;
+}
+
+/* Estilizando o card principal para ficar como no protótipo */
+.card {
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.breadcrumb {
+    background-color: transparent;
+    padding-left: 0;
+}
+
+/* Estilo para a caixa de "Dicas" */
+.alert-info {
+    background-color: #eefbfc;
+    border-color: #d1f3fa;
+    color: #0c5460;
+}
