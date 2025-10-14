@@ -1,15 +1,48 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout(pageTitle='Meu Dashboard', content=~{::content})}">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard - PetDoc</title>
 </head>
 <body>
-<h1>Bem-vindo ao seu Dashboard!</h1>
-<p>Login realizado com sucesso.</p>
 
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Sair</button>
-</form>
+<section th:fragment="content">
+
+    <div th:if="${sucesso}" class="alert alert-success" th:text="${sucesso}"></div>
+    <div th:if="${erro}" class="alert alert-danger" th:text="${erro}"></div>
+
+    <div>
+        <h1>Meus Pets</h1>
+        <a th:href="@{/pets/novo}">+ Adicionar Novo Pet</a>
+    </div>
+    <hr>
+
+    <div th:if="${#lists.isEmpty(pets)}">
+        <h2>Você ainda não cadastrou nenhum pet.</h2>
+        <p>Que tal começar agora?</p>
+        <a th:href="@{/pets/novo}">Cadastrar meu primeiro pet</a>
+    </div>
+
+    <div th:unless="${#lists.isEmpty(pets)}">
+        <div th:each="pet : ${pets}" style="margin-bottom: 20px;">
+            <h3 th:text="${pet.nome}">Nome do Pet</h3>
+            <p>
+                <strong>Espécie:</strong> <span th:text="${pet.especie}">Espécie</span><br/>
+                <strong>Raça:</strong> <span th:text="${pet.raca}">Raça</span><br/>
+                <span th:if="${pet.dataNascimento != null}">
+                    <strong>Nascimento:</strong> <span th:text="${#temporals.format(pet.dataNascimento, 'dd/MM/yyyy')}">dd/mm/yyyy</span>
+                </span>
+            </p>
+
+            <a th:href="@{/pets/{id}/editar(id=${pet.id})}">Editar</a>
+
+            <form th:action="@{/pets/{id}/excluir(id=${pet.id})}" method="post" style="display: inline; margin-left: 10px;">
+                <button type="submit">Excluir</button>
+            </form>
+            <hr>
+        </div>
+    </div>
+
+</section>
+
 </body>
 </html>
