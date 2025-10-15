@@ -22,11 +22,22 @@ public class AuthController {
 
     @GetMapping("/login")
     public String exibirPaginaLogin() {
+        return "auth/login-modern";
+    }
+    
+    @GetMapping("/login/legacy")
+    public String exibirPaginaLoginLegacy() {
         return "auth/login";
     }
 
     @GetMapping("/cadastro")
     public String exibirFormularioCadastro(Model model) {
+        model.addAttribute("tutor", new TutorCadastroDTO("", "", ""));
+        return "auth/cadastro-modern";
+    }
+    
+    @GetMapping("/cadastro/legacy")
+    public String exibirFormularioCadastroLegacy(Model model) {
         model.addAttribute("tutor", new TutorCadastroDTO("", "", ""));
         return "auth/cadastro";
     }
@@ -47,7 +58,7 @@ public class AuthController {
             return "redirect:/login";
         } catch (Exception e) {
             model.addAttribute("erroGeral", e.getMessage());
-            return "auth/cadastro";
+            return "auth/cadastro-modern";
         }
     }
 }
