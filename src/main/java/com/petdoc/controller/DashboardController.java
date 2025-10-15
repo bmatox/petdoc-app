@@ -26,6 +26,12 @@ public class DashboardController {
 
     @GetMapping("/dashboard")
     public String exibirDashboard(Model model) {
+        // Modern dashboard uses Vue.js and API, no need to pass data via Model
+        return "dashboard-modern";
+    }
+    
+    @GetMapping("/dashboard/legacy")
+    public String exibirDashboardLegacy(Model model) {
         List<Pet> petsDoTutor = petService.listarPetsDoTutor();
         model.addAttribute("pets", petsDoTutor);
 

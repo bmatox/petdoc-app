@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout(pageTitle='Dashboard Moderno', content=~{::content})}">
+<head>
+    <link rel="stylesheet" th:href="@{/css/modern.css}">
+</head>
+<body>
+
+<section th:fragment="content">
+    <div id="dashboard-app">
+        
+        <!-- Toast Notifications -->
+        <div class="toast-container">
+            <transition name="slide-fade">
+                <div v-if="toast.show" :class="['toast-modern', toast.type]">
+                    <i class="fas" :class="{
+                        'fa-check-circle': toast.type === 'success',
+                        'fa-exclamation-circle': toast.type === 'error',
+                        'fa-info-circle': toast.type === 'info'
+                    }"></i>
+                    <span>{{ toast.message }}</span>
+                </div>
+            </transition>
+        </div>
+
+        <!-- Header Section -->
+        <div class="mb-4">
+            <h1 class="h2 fw-bold" style="color: var(--color-gray-800);">Meus Pets</h1>
+            <p class="text-muted">Gerencie seus pets e acompanhe seu histórico de saúde</p>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="row mb-5">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="kpi-card-modern primary">
+                    <div class="d-flex align-items-center">
+                        <div class="kpi-icon-modern me-3">
+                            <i class="fas fa-paw"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs fw-bold text-uppercase mb-1" style="color: var(--color-gray-600);">Total de Pets</div>
+                            <div class="h5 mb-0 fw-bold" style="color: var(--color-gray-800);">{{ statistics.totalPets }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="kpi-card-modern danger">
+                    <div class="d-flex align-items-center">
+                        <div class="kpi-icon-modern me-3">
+                            <i class="fas fa-syringe"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs fw-bold text-uppercase mb-1" style="color: var(--color-gray-600);">Vacinas Dadas</div>
+                            <div class="h5 mb-0 fw-bold" style="color: var(--color-gray-800);">{{ statistics.totalVacinas }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="kpi-card-modern success">
+                    <div class="d-flex align-items-center">
+                        <div class="kpi-icon-modern me-3">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs fw-bold text-uppercase mb-1" style="color: var(--color-gray-600);">Registros de Saúde</div>
+                            <div class="h5 mb-0 fw-bold" style="color: var(--color-gray-800);">{{ statistics.registrosSaude }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="kpi-card-modern warning">
+                    <div class="d-flex align-items-center">
+                        <div class="kpi-icon-modern me-3">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs fw-bold text-uppercase mb-1" style="color: var(--color-gray-600);">Visitas Marcadas</div>
+                            <div class="h5 mb-0 fw-bold" style="color: var(--color-gray-800);">{{ statistics.visitasMarcadas }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar mb-4">
+            <div class="flex-grow-1">
+                <input 
+                    type="text" 
+                    v-model="searchQuery"
+                    class="input-modern" 
+                    placeholder="🔍 Buscar pets...">
+            </div>
+            
+            <select v-model="speciesFilter" class="input-modern" style="width: 200px;">
+                <option value="">Todas as Espécies</option>
+                <option v-for="especie in speciesList" :key="especie" :value="especie">
+                    {{ especie }}
+                </option>
+            </select>
+            
+            <button 
+                v-if="searchQuery || speciesFilter"
+                @click="clearFilters" 
+                class="btn-modern btn-modern-secondary">
+                <i class="fas fa-times"></i>
+                Limpar
+            </button>
+            
+            <button @click="openAddModal" class="btn-modern btn-modern-primary">
+                <i class="fas fa-plus"></i>
+                Adicionar Pet
+            </button>
+        </div>
+
+        <!-- Loading State -->
+        <div v-if="loading" class="row">
+            <div v-for="i in 3" :key="i" class="col-md-6 col-lg-4 mb-4">
+                <div class="skeleton skeleton-card"></div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <transition name="fade">
+            <div v-if="!loading && !hasPets" class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="fas fa-paw"></i>
+                </div>
+                <h2 class="h4 mb-3">Você ainda não cadastrou nenhum pet</h2>
+                <p class="lead text-muted mb-4">Que tal começar agora?</p>
+                <button @click="openAddModal" class="btn-modern btn-modern-primary" style="padding: 0.875rem 2rem; font-size: 1rem;">
+                    <i class="fas fa-plus"></i>
+                    Cadastrar meu primeiro pet
+                </button>
+            </div>
+        </transition>
+
+        <!-- Pet Cards Grid -->
+        <transition-group name="list" tag="div" class="row" v-if="!loading && hasPets">
+            <div 
+                v-for="pet in filteredPets" 
+                :key="pet.id" 
+                class="col-md-6 col-lg-4 mb-4">
+                <div class="pet-card-modern">
+                    <div class="p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div class="pet-icon-modern">
+                                <i class="fas" :class="{
+                                    'fa-dog': pet.especie === 'Cachorro',
+                                    'fa-cat': pet.especie === 'Gato',
+                                    'fa-dove': pet.especie === 'Ave',
+                                    'fa-paw': !['Cachorro', 'Gato', 'Ave'].includes(pet.especie)
+                                }"></i>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button 
+                                    @click="openEditModal(pet)"
+                                    class="btn btn-sm btn-outline-secondary"
+                                    title="Editar Pet">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </button>
+                                <button 
+                                    @click="deletePet(pet)"
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Excluir Pet">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <h5 class="fw-bold mb-2" style="color: var(--color-gray-800);">{{ pet.nome }}</h5>
+                        <p class="text-muted small mb-2">
+                            {{ pet.especie || 'N/A' }} • {{ pet.raca || 'N/A' }}
+                        </p>
+                        <p class="text-muted small mb-3">
+                            <i class="fas fa-birthday-cake me-1"></i>
+                            Idade: {{ calculateAge(pet.dataNascimento) }}
+                        </p>
+                        
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-syringe me-2"></i>
+                                Vacinas
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition-group>
+
+        <!-- No Results State -->
+        <transition name="fade">
+            <div v-if="!loading && hasPets && filteredPets.length === 0" class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h2 class="h4 mb-3">Nenhum pet encontrado</h2>
+                <p class="text-muted mb-4">Tente ajustar os filtros de busca</p>
+                <button @click="clearFilters" class="btn-modern btn-modern-secondary">
+                    <i class="fas fa-times"></i>
+                    Limpar Filtros
+                </button>
+            </div>
+        </transition>
+
+        <!-- Add/Edit Pet Modal -->
+        <transition name="fade">
+            <div v-if="showAddModal" class="modal-overlay" @click.self="closeModal">
+                <div class="modal-content-modern">
+                    <div class="modal-header-modern">
+                        <h5 class="fw-bold mb-0">
+                            {{ editingPet ? 'Editar Pet' : 'Cadastrar Novo Pet' }}
+                        </h5>
+                        <button @click="closeModal" class="btn-close"></button>
+                    </div>
+                    
+                    <form @submit.prevent="savePet">
+                        <div class="modal-body-modern">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Nome do Pet *</label>
+                                    <input 
+                                        v-model="petForm.nome"
+                                        type="text" 
+                                        class="input-modern"
+                                        :class="{'border-danger': formErrors.nome}"
+                                        placeholder="Digite o nome do pet">
+                                    <div v-if="formErrors.nome" class="text-danger small mt-1">
+                                        {{ formErrors.nome }}
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Espécie *</label>
+                                    <input 
+                                        v-model="petForm.especie"
+                                        type="text" 
+                                        class="input-modern"
+                                        :class="{'border-danger': formErrors.especie}"
+                                        placeholder="Ex: Cachorro, Gato">
+                                    <div v-if="formErrors.especie" class="text-danger small mt-1">
+                                        {{ formErrors.especie }}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Raça</label>
+                                    <input 
+                                        v-model="petForm.raca"
+                                        type="text" 
+                                        class="input-modern"
+                                        placeholder="Ex: Vira-lata, Siamês">
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold">Data de Nascimento</label>
+                                    <input 
+                                        v-model="petForm.dataNascimento"
+                                        type="date" 
+                                        class="input-modern">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="modal-footer-modern">
+                            <button 
+                                type="button" 
+                                @click="closeModal"
+                                class="btn-modern btn-modern-secondary">
+                                Cancelar
+                            </button>
+                            <button 
+                                type="submit"
+                                :disabled="submitting"
+                                class="btn-modern btn-modern-primary">
+                                <span v-if="submitting" class="spinner me-2"></span>
+                                <i v-else class="fas fa-save me-2"></i>
+                                {{ submitting ? 'Salvando...' : 'Salvar Pet' }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </transition>
+
+    </div>
+
+    <!-- Vue.js 3 from CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Dashboard App Script -->
+    <script th:src="@{/js/dashboard.js}"></script>
+</section>
+
+</body>
+</html>

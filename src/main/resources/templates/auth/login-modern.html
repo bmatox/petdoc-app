@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - PetDoc</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" th:href="@{/css/modern.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <style>
+        /* Modern Login Enhancements */
+        .login-modern {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e0ffed 0%, #f0fff7 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-modern::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 106, 113, 0.1) 0%, transparent 70%);
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-20px, -20px) rotate(5deg); }
+        }
+        
+        .login-card-modern {
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .input-modern-login {
+            padding: 0.875rem 1.125rem;
+            font-size: 1rem;
+            border: 2px solid var(--color-gray-300);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-base);
+        }
+        
+        .input-modern-login:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px rgba(0, 106, 113, 0.1);
+        }
+        
+        .btn-login-modern {
+            padding: 0.875rem 2rem;
+            font-size: 1.125rem;
+            font-weight: 700;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            border: none;
+            color: white;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-login-modern:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+        
+        .logo-modern {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .carousel-modern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .carousel-modern::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 106, 113, 0.6) 0%, rgba(0, 106, 113, 0.3) 100%);
+            z-index: 1;
+        }
+        
+        .carousel-modern .carousel-item img {
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        .carousel-modern .carousel-control-prev,
+        .carousel-modern .carousel-control-next {
+            z-index: 2;
+        }
+        
+        .carousel-modern .carousel-indicators {
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+
+<div id="login-app">
+    <div class="container-fluid ps-md-0">
+        <div class="row g-0">
+            <!-- Image Carousel Column -->
+            <div class="d-none d-md-flex col-md-4 col-lg-6 position-relative">
+                <div id="loginCarousel" class="carousel slide carousel-fade carousel-modern h-100" data-bs-ride="carousel" data-bs-interval="3000">
+                    
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#loginCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#loginCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#loginCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#loginCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    </div>
+
+                    <div class="carousel-inner h-100">
+                        <div class="carousel-item active h-100">
+                            <img th:src="@{/images/image1.jpg}" class="d-block w-100" alt="Cachorro com seu dono">
+                        </div>
+                        <div class="carousel-item h-100">
+                            <img th:src="@{/images/image2.jpg}" class="d-block w-100" alt="Pata de um gato">
+                        </div>
+                        <div class="carousel-item h-100">
+                            <img th:src="@{/images/image3.jpg}" class="d-block w-100" alt="Cachorro com coleira">
+                        </div>
+                        <div class="carousel-item h-100">
+                            <img th:src="@{/images/image4.jpg}" class="d-block w-100" alt="Cachorro feliz">
+                        </div>
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#loginCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#loginCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Próximo</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Login Form Column -->
+            <div class="col-md-8 col-lg-6">
+                <div class="login-modern">
+                    <div class="container position-relative" style="z-index: 1;">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-8 mx-auto">
+                                <div class="login-card-modern p-4 p-md-5">
+                                    
+                                    <!-- Logo and Brand -->
+                                    <div class="text-center mb-5">
+                                        <img th:src="@{/images/petdoc-logo.png}" alt="Logo PetDoc" class="img-fluid rounded-circle logo-modern" style="max-height: 90px; box-shadow: 0 8px 20px rgba(0, 106, 113, 0.2);">
+                                        <h1 class="mt-4 fw-bold" style="color: var(--color-gray-800); font-size: 2rem;">PetDoc</h1>
+                                        <p class="text-muted">A saúde do seu pet na palma da sua mão</p>
+                                    </div>
+
+                                    <h2 class="h4 fw-bold mb-4" style="color: var(--color-gray-800);">Bem-vindo de volta!</h2>
+
+                                    <!-- Alerts -->
+                                    <transition name="slide-fade">
+                                        <div v-if="errorMessage" class="alert alert-danger d-flex align-items-center" role="alert">
+                                            <i class="fas fa-exclamation-circle me-2"></i>
+                                            <span>{{ errorMessage }}</span>
+                                        </div>
+                                    </transition>
+                                    
+                                    <div th:if="${param.error}" class="alert alert-danger d-flex align-items-center" role="alert">
+                                        <i class="fas fa-exclamation-circle me-2"></i>
+                                        <span>Usuário ou senha inválidos.</span>
+                                    </div>
+                                    
+                                    <transition name="slide-fade">
+                                        <div v-if="successMessage || '[[${sucesso}]]'" class="alert alert-success d-flex align-items-center" role="alert">
+                                            <i class="fas fa-check-circle me-2"></i>
+                                            <span>{{ successMessage || '[[${sucesso}]]' }}</span>
+                                        </div>
+                                    </transition>
+
+                                    <!-- Login Form -->
+                                    <form th:action="@{/login}" method="post" @submit="handleSubmit">
+                                        <div class="mb-4">
+                                            <label for="username" class="form-label fw-semibold">
+                                                <i class="fas fa-envelope me-2"></i>E-mail
+                                            </label>
+                                            <input 
+                                                type="text" 
+                                                class="input-modern-login w-100" 
+                                                id="username" 
+                                                name="username" 
+                                                placeholder="seu@email.com" 
+                                                required 
+                                                autofocus
+                                                v-model="form.username">
+                                        </div>
+                                        
+                                        <div class="mb-4">
+                                            <label for="password" class="form-label fw-semibold">
+                                                <i class="fas fa-lock me-2"></i>Senha
+                                            </label>
+                                            <div class="position-relative">
+                                                <input 
+                                                    :type="showPassword ? 'text' : 'password'" 
+                                                    class="input-modern-login w-100" 
+                                                    id="password" 
+                                                    name="password" 
+                                                    placeholder="Digite sua senha" 
+                                                    required
+                                                    v-model="form.password">
+                                                <button 
+                                                    type="button" 
+                                                    @click="showPassword = !showPassword"
+                                                    class="btn btn-link position-absolute end-0 top-50 translate-middle-y"
+                                                    style="text-decoration: none; color: var(--color-gray-600);">
+                                                    <i class="fas" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-grid gap-3">
+                                            <button 
+                                                class="btn btn-login-modern" 
+                                                type="submit"
+                                                :disabled="loading">
+                                                <span v-if="loading" class="spinner-border spinner-border-sm me-2"></span>
+                                                <i v-else class="fas fa-sign-in-alt me-2"></i>
+                                                {{ loading ? 'Entrando...' : 'Entrar' }}
+                                            </button>
+                                            
+                                            <div class="text-center">
+                                                <a class="text-decoration-none" href="/cadastro" th:href="@{/cadastro}" style="color: var(--color-primary); font-weight: 600;">
+                                                    Não tem uma conta? <span style="text-decoration: underline;">Cadastre-se</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vue.js 3 -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<!-- Vue App -->
+<script>
+const { createApp } = Vue;
+
+createApp({
+    data() {
+        return {
+            form: {
+                username: '',
+                password: ''
+            },
+            showPassword: false,
+            loading: false,
+            errorMessage: '',
+            successMessage: ''
+        };
+    },
+    methods: {
+        handleSubmit(event) {
+            this.loading = true;
+            this.errorMessage = '';
+            // Form will be submitted naturally by browser
+            // Loading state will reset on page reload
+        }
+    }
+}).mount('#login-app');
+</script>
+
+<div th:replace="~{fragments/footer :: main-footer}"></div>
+
+</body>
+</html>
