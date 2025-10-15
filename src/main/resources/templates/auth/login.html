@@ -121,7 +121,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://unpkg.com/vue@3.3.4/dist/vue.global.js"></script>
+<script src="https://unpkg.com/vue@3.3.4/dist/vue.global.js" onerror="this.remove()"></script>
 <script>
 (function() {
     'use strict';
@@ -130,102 +130,106 @@
     document.addEventListener('DOMContentLoaded', function() {
         
         // Verificar se Vue está disponível, caso contrário usar vanilla JS
-        if (typeof Vue !== 'undefined') {
-            // Implementação com Vue.js 3
-            const { createApp } = Vue;
-            
-            createApp({
-                data() {
-                    return {
-                        formData: {
-                            email: '',
-                            password: ''
+        if (typeof Vue !== 'undefined' && Vue.createApp) {
+            try {
+                // Implementação com Vue.js 3
+                const { createApp } = Vue;
+                
+                createApp({
+                    data() {
+                        return {
+                            formData: {
+                                email: '',
+                                password: ''
+                            },
+                            emailTouched: false,
+                            passwordTouched: false,
+                            isLoading: false
+                        };
+                    },
+                    computed: {
+                        emailError() {
+                            if (!this.formData.email) {
+                                return 'O e-mail é obrigatório';
+                            }
+                            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                            if (!emailRegex.test(this.formData.email)) {
+                                return 'Por favor, insira um e-mail válido';
+                            }
+                            return '';
                         },
-                        emailTouched: false,
-                        passwordTouched: false,
-                        isLoading: false
-                    };
-                },
-                computed: {
-                    emailError() {
-                        if (!this.formData.email) {
-                            return 'O e-mail é obrigatório';
+                        passwordError() {
+                            if (!this.formData.password) {
+                                return 'A senha é obrigatória';
+                            }
+                            if (this.formData.password.length < 8) {
+                                return 'A senha deve ter no mínimo 8 caracteres';
+                            }
+                            return '';
+                        },
+                        isFormValid() {
+                            return !this.emailError && !this.passwordError && 
+                                   this.formData.email && this.formData.password;
                         }
-                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        if (!emailRegex.test(this.formData.email)) {
-                            return 'Por favor, insira um e-mail válido';
-                        }
-                        return '';
                     },
-                    passwordError() {
-                        if (!this.formData.password) {
-                            return 'A senha é obrigatória';
-                        }
-                        if (this.formData.password.length < 8) {
-                            return 'A senha deve ter no mínimo 8 caracteres';
-                        }
-                        return '';
-                    },
-                    isFormValid() {
-                        return !this.emailError && !this.passwordError && 
-                               this.formData.email && this.formData.password;
-                    }
-                },
-                methods: {
-                    validateEmail() {
-                        // Validação em tempo real
-                    },
-                    validatePassword() {
-                        // Validação em tempo real
-                    },
-                    handleSubmit(event) {
-                        this.emailTouched = true;
-                        this.passwordTouched = true;
-                        
-                        if (!this.isFormValid) {
-                            event.preventDefault();
-                            return;
-                        }
-                        
-                        this.isLoading = true;
-                        // O formulário será enviado normalmente ao Spring Security
-                    }
-                },
-                mounted() {
-                    // Renderizar formulário Vue
-                    const form = document.getElementById('loginForm');
-                    if (form) {
-                        // Substituir campos simples por campos reativos do Vue
-                        const emailInput = document.getElementById('username');
-                        const passwordInput = document.getElementById('password');
-                        
-                        if (emailInput && passwordInput) {
-                            emailInput.addEventListener('input', (e) => {
-                                this.formData.email = e.target.value;
-                                this.validateEmail();
-                            });
-                            emailInput.addEventListener('blur', () => {
-                                this.emailTouched = true;
-                            });
+                    methods: {
+                        validateEmail() {
+                            // Validação em tempo real
+                        },
+                        validatePassword() {
+                            // Validação em tempo real
+                        },
+                        handleSubmit(event) {
+                            this.emailTouched = true;
+                            this.passwordTouched = true;
                             
-                            passwordInput.addEventListener('input', (e) => {
-                                this.formData.password = e.target.value;
-                                this.validatePassword();
-                            });
-                            passwordInput.addEventListener('blur', () => {
-                                this.passwordTouched = true;
-                            });
+                            if (!this.isFormValid) {
+                                event.preventDefault();
+                                return;
+                            }
+                            
+                            this.isLoading = true;
+                            // O formulário será enviado normalmente ao Spring Security
                         }
-                        
-                        form.addEventListener('submit', this.handleSubmit);
+                    },
+                    mounted() {
+                        // Renderizar formulário Vue
+                        const form = document.getElementById('loginForm');
+                        if (form) {
+                            // Substituir campos simples por campos reativos do Vue
+                            const emailInput = document.getElementById('username');
+                            const passwordInput = document.getElementById('password');
+                            
+                            if (emailInput && passwordInput) {
+                                emailInput.addEventListener('input', (e) => {
+                                    this.formData.email = e.target.value;
+                                    this.validateEmail();
+                                });
+                                emailInput.addEventListener('blur', () => {
+                                    this.emailTouched = true;
+                                });
+                                
+                                passwordInput.addEventListener('input', (e) => {
+                                    this.formData.password = e.target.value;
+                                    this.validatePassword();
+                                });
+                                passwordInput.addEventListener('blur', () => {
+                                    this.passwordTouched = true;
+                                });
+                            }
+                            
+                            form.addEventListener('submit', this.handleSubmit);
+                        }
                     }
-                }
-            }).mount('#loginApp');
-            
-        } else {
-            // Fallback: Implementação com vanilla JavaScript puro
-            initVanillaJS();
+                }).mount('#loginApp');
+                return; // Exit if Vue mounted successfully
+            } catch (e) {
+                console.log('Vue failed to mount, falling back to vanilla JS:', e);
+            }
         }
+        
+        // Fallback: Implementação com vanilla JavaScript puro
+        initVanillaJS();
     });
     
     function initVanillaJS() {
@@ -233,6 +237,11 @@
         const passwordInput = document.getElementById('password');
         const submitButton = document.getElementById('submitButton');
         const loginForm = document.getElementById('loginForm');
+        
+        if (!emailInput || !passwordInput || !submitButton || !loginForm) {
+            console.error('Elementos do formulário não encontrados');
+            return;
+        }
         
         let emailTouched = false;
         let passwordTouched = false;
@@ -334,6 +343,8 @@
             // O formulário será enviado normalmente
             return true;
         });
+        
+        console.log('Login form initialized with vanilla JavaScript');
     }
 })();
 </script>
