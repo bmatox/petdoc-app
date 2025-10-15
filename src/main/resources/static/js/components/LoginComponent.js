@@ -107,6 +107,12 @@ const LoginComponent = {
               <a href="/cadastro" class="link-cadastro">
                 Não tem uma conta? <strong>Cadastre-se</strong>
               </a>
+              <div class="classic-version-link">
+                <a href="/login" class="link-classic">
+                  <i class="fas fa-arrow-left"></i>
+                  Versão clássica
+                </a>
+              </div>
             </div>
           </form>
         </div>

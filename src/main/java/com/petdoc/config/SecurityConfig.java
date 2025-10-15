@@ -48,7 +48,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")
+                        .loginPage("/login-vue")
                         .defaultSuccessUrl("/dashboard", true)
                         .permitAll()
                 )
