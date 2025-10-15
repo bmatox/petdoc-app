@@ -25,6 +25,11 @@ public class AuthController {
         return "auth/login";
     }
 
+    @GetMapping("/login-vue")
+    public String exibirPaginaLoginVue() {
+        return "auth/login-vue";
+    }
+
     @GetMapping("/cadastro")
     public String exibirFormularioCadastro(Model model) {
         model.addAttribute("tutor", new TutorCadastroDTO("", "", ""));
