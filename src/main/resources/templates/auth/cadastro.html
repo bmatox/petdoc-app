@@ -12,16 +12,19 @@
 
 <div class="container-fluid ps-md-0">
     <div class="row g-0">
+        <!-- IMAGEM LATERAL -->
         <div class="d-none d-md-flex col-md-4 col-lg-6 position-relative">
             <img th:src="@{/images/image1.jpg}" class="d-block w-100 h-100 object-fit-cover" alt="Cachorro com seu dono">
         </div>
 
+        <!-- FORMULÁRIO -->
         <div class="col-md-8 col-lg-6">
             <div class="login d-flex align-items-center py-5">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-9 col-lg-8 mx-auto">
 
+                            <!-- LOGO -->
                             <div class="text-center mb-4">
                                 <img th:src="@{/images/petdoc-logo.png}" alt="Logo PetDoc" class="img-fluid rounded-circle logo-shadow" style="max-height: 80px;">
                                 <h2 class="mt-3 petdoc-brand-name">PetDoc</h2>
@@ -30,37 +33,41 @@
 
                             <h3 class="login-heading mb-4">Crie sua conta</h3>
 
-                            <div th:if="${param.error}" class="alert alert-danger">
-                                Ocorreu um erro. Verifique os dados e tente novamente.
-                            </div>
-                            <div th:if="${sucesso}" class="alert alert-success" th:text="${sucesso}">
-                            </div>
+                            <!-- MENSAGENS -->
+                            <div th:if="${erroGeral}" class="alert alert-danger" th:text="${erroGeral}"></div>
+                            <div th:if="${sucesso}" class="alert alert-success" th:text="${sucesso}"></div>
 
-                            <form th:action="@{/cadastro}" method="post">
+                            <!-- FORM FUNCIONAL -->
+                            <form th:action="@{/cadastro}" th:object="${tutor}" method="post">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu Nome" required autofocus>
+                                    <input type="text" class="form-control" id="nome" th:field="*{nome}" placeholder="Seu Nome" required autofocus>
                                     <label for="nome">Nome</label>
+                                    <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger small mt-1"></p>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="seu@email.com" required>
+                                    <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="seu@email.com" required>
                                     <label for="email">E-mail</label>
+                                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger small mt-1"></p>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
-                                    <label for="password">Senha</label>
+                                    <input type="password" class="form-control" id="senha" th:field="*{senha}" placeholder="Senha" required>
+                                    <label for="senha">Senha</label>
+                                    <p th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" class="text-danger small mt-1"></p>
                                 </div>
 
+                                <!--
                                 <div class="form-floating mb-3">
                                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirme a Senha" required>
                                     <label for="confirmPassword">Confirme a Senha</label>
                                 </div>
+                                -->
 
                                 <div class="d-grid">
                                     <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit">Cadastrar</button>
                                     <div class="text-center">
-                                        <a class="small" href="/login" th:href="@{/login}">Já tem uma conta? Faça Login</a>
+                                        <a class="small" th:href="@{/login}">Já tem uma conta? Faça Login</a>
                                     </div>
                                 </div>
                             </form>
