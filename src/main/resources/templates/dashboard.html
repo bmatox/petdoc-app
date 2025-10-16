@@ -78,18 +78,22 @@
 
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
         <h2 class="h4 mb-0">Seus Pets</h2>
-        <div class="d-flex align-items-center">
-            <input type="text" class="form-control me-2" placeholder="Buscar Pets..." style="width: 200px;">
-            <select class="form-select me-3" style="width: auto;">
-                <option selected>Espécies</option>
-                <option value="Cachorro">Cachorro</option>
-                <option value="Gato">Gato</option>
-                <option value="Ave">Ave</option>
+
+        <form th:action="@{/dashboard}" method="get" class="d-flex align-items-center">
+
+            <input type="text" class="form-control me-2" name="busca" placeholder="Buscar Pets..." style="width: 200px;">
+
+            <select class="form-select me-3" name="especie" onchange="this.form.submit()" style="width: auto;">
+                <option value="" th:selected="${especieFiltro == null or especieFiltro == ''}">Todas as Espécies</option>
+                <option value="Cachorro" th:selected="${especieFiltro == 'Cachorro'}">Cachorro</option>
+                <option value="Gato" th:selected="${especieFiltro == 'Gato'}">Gato</option>
+                <option value="Ave" th:selected="${especieFiltro == 'Ave'}">Ave</option>
             </select>
+
             <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPetModal">
                 + Adicionar Pet
             </a>
-        </div>
+        </form>
     </div>
 
     <div th:if="${#lists.isEmpty(pets)}" class="text-center p-5 border rounded bg-white shadow-sm">

@@ -79,4 +79,19 @@ public class PetService {
         }
         return pet;
     }
+
+    public List<Pet> listarPetsDoTutor(String especieFiltro) {
+        try {
+            Tutor tutorLogado = usuarioLogadoService.getTutorAutenticado();
+            // Se o filtro for nulo, busca todos
+            if (especieFiltro == null || especieFiltro.isBlank() || especieFiltro.equals("")) {
+                return petRepository.findByTutorId(tutorLogado.getId());
+            }
+            // Caso contrário, usa o novo metodo para filtrar por espécie
+            return petRepository.findByTutorIdAndEspecie(tutorLogado.getId(), especieFiltro);
+
+        } catch (IllegalStateException e) {
+            return Collections.emptyList();
+        }
+    }
 }
