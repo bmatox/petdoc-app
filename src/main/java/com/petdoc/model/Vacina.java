@@ -1,9 +1,11 @@
 package com.petdoc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
@@ -27,7 +29,8 @@ public class Vacina {
     @Column(name = "data_reforco")
     private LocalDate dataReforco;
 
-    // Relacionamento: Muitas Vacinas pertencem a um Pet
+    @ToString.Exclude
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pet_id", nullable = false)
     private Pet pet;
