@@ -1,9 +1,12 @@
 package com.petdoc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,15 +29,17 @@ public class Pet {
 
     private String raca;
 
-    @Column(name = "data_nascimento") // JPA: Mapeia o campo Java "dataNascimento" para a coluna "data_nascimento" no banco
+    @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    // Relacionamento: Muitos Pets pertencem a um Tutor
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tutor_id", nullable = false) // JPA: Define a coluna da chave estrangeira ("tutor_id")
+    @JoinColumn(name = "tutor_id", nullable = false)
     private Tutor tutor;
 
-    // Relacionamento: Um Pet pode ter muitas Vacinas
+
+    @ToString.Exclude
+    @JsonManagedReference
     @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Vacina> vacinas;
 }

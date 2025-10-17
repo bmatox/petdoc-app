@@ -1,5 +1,6 @@
 package com.petdoc.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "tutor")
-public class Tutor implements UserDetails { // <-- MUDANÇA IMPORTANTE AQUI
+public class Tutor implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +33,7 @@ public class Tutor implements UserDetails { // <-- MUDANÇA IMPORTANTE AQUI
     @Column(nullable = false)
     private String senha;
 
+    @JsonManagedReference
     @ToString.Exclude
     @OneToMany(mappedBy = "tutor")
     private List<Pet> pets;
